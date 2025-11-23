@@ -1,0 +1,12 @@
+category,value,target,progress,status,trend,unit
+Active Decisions,12,15,80,On Track,+2,decisions
+Progress,5,8,62.5,Behind,-1,items
+Urgent Items,28,20,140,High,0,items
+System Health,94,100,94,Healthy,+1,%
+
+Quarterly Revenue,24.8,25,99,On Track,+2.1,$M
+Strategic Initiatives,8,12,66.7,On Track,+1,initiatives
+Decision Velocity,3.2,3.0,106.7,Faster,+15%,days
+Risk Score,2.45,3.0,81.7,Low Risk,-0.3,score
+Team Collaboration,94,100,94,Strong,+8,%
+Market Position,2,1,200,Maintained,0,rank
