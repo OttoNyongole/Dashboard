@@ -1,7 +1,7 @@
 # Dashboard
 Building a Strategic Decision Dashboard
 High-Level Vision (What We're Building):
-- Core UI: Clean, card-based layout (like the screenshots) with navigation (Dashboard, Analysis, Collaboration).
+- Core UI: Clean, card-based layout with navigation (Dashboard, Analysis, Collaboration).
 - Key Sections:
   - Header: Title, date, user info, online status.
   - Top Metrics: Active Decisions, Urgent Items, Team Members, System Health.
