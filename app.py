@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 import time
 import google.generativeai as genai
-from venv import load_venv
+#from venv import load_venv
 import os
 #------------------------------------
 # 1. CONFIG AND DATA
@@ -158,3 +158,4 @@ st.caption("Built with Streamlit • © 2024 WATASHA . Data auto-refresh every 6
 time.sleep(1)
 st.rerun()
 
+#------------------------------------
