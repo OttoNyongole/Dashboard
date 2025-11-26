@@ -30,24 +30,30 @@ st.caption("Strategic Intelligence for commercial timber ptoduction")
 #--------------------------------------
 st.markdown("""
 <style>
-    .card {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        border: 1px solid #E2E8F0;
-        height: 100%;
-    }
-    .metric-label { font-size: 0.9rem; color: #64748B; margin-bottom: 0.5rem; }
-    .metric-value { font-size: 2rem; font-weight: 700; color: #1E293B; }
-    .trend-up { color: #10B981; }
-    .trend-down { color: #EF4444; }
-    .badge-urgent { background: #FECACA; color: #991B1B; padding: 0.25rem 0.5rem; border-radius: 999px; font-size: 0.75rem; }
-    .badge-online { background: #BBF7D0; color: #166534; }
-    .activity-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid #E2E8F0; }
-    .activity-time { font-size: 0.8rem; color: #94A3B8; }
+.card {
+    background: white;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    margin-bottom: 1rem;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #64748B;
+}
+
+.metric-value {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #0F172A;
+}
+
+.trend-up { color: #10B981; font-weight: 600; }
+.trend-down { color: #EF4444; font-weight: 600; }
 </style>
 """, unsafe_allow_html=True)
+
 #--------------------------------------
 # 3. HEADER
 #--------------------------------------
@@ -106,49 +112,50 @@ left, right = st.columns([3, 1])
 # ---------- LEFT PANEL ----------
 with left:
     st.markdown("<h3 style='margin-top:0;'>Key Performance Indicators</h3>", unsafe_allow_html=True)
-    
+
     kpi_names = [
-    "Quarterly Revenue", "Strategic Initiatives", "Decision Velocity",
-    "Risk Score", "Team Collaboration", "Market Position"
-]
+        "Quarterly Revenue", "Strategic Initiatives", "Decision Velocity",
+        "Risk Score", "Team Collaboration", "Market Position"
+    ]
 
-rows = st.columns(2)
-for i, name in enumerate(kpi_names):
+    rows = st.columns(2)
 
-    filtered = df[df["category"] == name]
-    if filtered.empty:
-        st.warning(f"No data for {name}")
-        continue
+    for i, name in enumerate(kpi_names):
 
-    row = filtered.iloc[0]
+        filtered = df[df["category"] == name]
+        if filtered.empty:
+            st.warning(f"No data for {name}")
+            continue
 
-    # clean trend
-    trend_val = float(str(row["trend"]).replace("%",""))
+        row = filtered.iloc[0]
 
-    progress = float(row["progress"])
-    color = "#10B981" if "On Track" in row["status"] else "#F59E0B" if progress < 80 else "#EF4444"
+        trend_val = float(str(row["trend"]).replace("%", "").replace("+", ""))
+        progress = float(row["progress"])
+        
+        color = "#10B981" if "On Track" in row["status"] else "#F59E0B" if progress < 80 else "#EF4444"
 
-    with rows[i % 2]:
-        st.markdown(f"""
-        <div class="card">
-            <div class="metric-label">{name}</div>
-            <div class="metric-value">{row['value']}{row['unit']}</div>
+        with rows[i % 2]:
+            st.markdown(
+f"""
+<div class="card">
+    <div class="metric-label">{name}</div>
+    <div class="metric-value">{row['value']}{row['unit']}</div>
 
-            <div style="margin:0.5rem 0;">
-                <div style="background:#E2E8F0; border-radius:999px; height:8px; overflow:hidden;">
-                    <div style="background:{color}; width:{progress}%; height:100%;"></div>
-                </div>
-            </div>
-
-            <div style="font-size:0.9rem; color:#64748B;">
-                {row['status']}
-                <span class="trend-{'up' if trend_val >= 0 else 'down'}">
-                    {'↑' if trend_val >= 0 else '↓'}
-                    {abs(trend_val)}
-                </span>
-            </div>
+    <div style="margin:0.5rem 0;">
+        <div style="background:#E2E8F0; border-radius:999px; height:8px; overflow:hidden;">
+            <div style="background:{color}; width:{progress}%; height:100%;"></div>
         </div>
-        """, unsafe_allow_html=True)
+    </div>
+
+    <div style="font-size:0.9rem; color:#64748B;">
+        {row['status']}
+        <span class="trend-{'up' if trend_val >= 0 else 'down'}">
+            {'↑' if trend_val >= 0 else '↓'}
+            {abs(trend_val)}
+        </span>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 
 #--------------------------------------
@@ -157,8 +164,9 @@ for i, name in enumerate(kpi_names):
 st.markdown("---")
 st.caption("Built with Streamlit • © 2024 WATASHA . Data auto-refresh every 60s")
 
+#--------------------------------------
+# commented the entire section
 # Auto-refresh every 60 seconds
-time.sleep(1)
+#time.sleep(1)
 st.rerun()
-
-#------------------------------------
+#--------------------------------------
